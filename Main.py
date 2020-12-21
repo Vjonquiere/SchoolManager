@@ -1,5 +1,7 @@
 from tkinter import *
-import sqlite3, sys, hashlib
+import sqlite3, sys, hashlib, eleve_panel
+
+
 
 class GUI:
     
@@ -31,10 +33,24 @@ class GUI:
         
         #### button ####
         
-        self.log_button = Button(self.master,command = self.log_test, text= "login").grid(column=3,row=3)
+        self.log_button = Button(self.master,command = self.login_test, text= "login").grid(column=3,row=3)
+    
+    def login_test(self):
         
-    def log_test(self):
-        self.hash_mdp = hashlib.md5(self.mdp_champs.get().encode()) 
+        self.hash_mdp = hashlib.md5(self.mdp_champs.get().encode()).hexdigest()
+
+
+        self.data = (self.login_champs.get(),self.hash_mdp)
+        self.c.execute('''SELECT * FROM person WHERE login = ? AND mdp = ?''', self.data)
+        self.a = self.c.fetchall()
+        
+        if len(self.a) == 0:
+            print("username or paswd invalid")
+        else:
+            self.return_data = self.a[0]
+            if self.return_data[3] == "eleve":
+                eleve_panel.test(self.return_data[0])
+
         
         
         
