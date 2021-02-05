@@ -32,11 +32,11 @@ class GUI:
             if self.menu1 == "b":
                 self.school_office_adder()
             if self.menu1 == "c":
-                sys.quit()
+                sys.exit()
     
       
     def student_adder(self):
-        
+    
         #### Inputable required values
         
             self.nom = input("nom: ")
@@ -82,7 +82,13 @@ class GUI:
         file1 = open(file_name,"w+")
         file1.write("|------------------------------------------|\n|        Access code School Manager        |\n\n    student: " + self.nom + " " + self.prenom + " " + self.classe + "\n\n    username: " + self.login + "\n    password: " + self.mdp + "\n\n|------------------------------------------|")
         file1.close()
-     
+        
+    def txt_creator_school_office(self):
+        file_name = self.nom + self.prenom + ".txt"
+        file1 = open(file_name,"w+")
+        file1.write("|------------------------------------------|\n|        Access code School Manager        |\n\n    school office account: " + self.nom + " " + self.prenom + "\n\n    username: " + self.login + "\n    password: " + self.mdp + "\n\n|------------------------------------------|")
+        file1.close()
+        
     def school_office_adder(self):
         
         #### Inputable required values
@@ -95,7 +101,7 @@ class GUI:
             
             self.login = self.prenom.lower() + "." + self.nom.lower()           
             self.mdp_generateur()
-            self.txt_creator()
+            self.txt_creator_school_office()
             self.hash_mdp = hashlib.md5(self.mdp.encode()).hexdigest()
             
         
@@ -118,8 +124,9 @@ class GUI:
         self.c.execute('''SELECT id FROM users WHERE login = ? ''', self.data)
         self.a = self.c.fetchall()
         return self.a[0][0]
-        
-           
+
+
+
 root = Tk()
 my_gui = GUI(root)
 root.mainloop()

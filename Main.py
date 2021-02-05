@@ -1,5 +1,6 @@
 from tkinter import *
-import sqlite3, sys, hashlib, eleve_panel
+
+import sqlite3, sys, hashlib, eleve_panel, school_office
 
 
 
@@ -9,8 +10,10 @@ class GUI:
         self.master = master
         self.master.minsize(300,175)
         self.master.maxsize(300,175)
+        self.master.title("School Manager Login")
         
         self.font = "fonts/Nunito"
+        
         
         self.error  = False
         
@@ -21,7 +24,7 @@ class GUI:
         
         
         ##### Structure label ####
-        self.title = Label(text = "Login Page", font=("fonts/Nunito-Black", 15)).grid(column=3, row=0, pady = (0,10))
+        self.title = Label(text = "Login Page", font=("Impact",15)).grid(column=3, row=0, pady = (0,10))
         self.login_label = Label(text = "Login", font = (self.font, 10)).grid(column=2,row=1,sticky = E, pady=(0,5))
         self.login_label = Label(text = "Password",font = (self.font, 10)).grid(column=2,row=2,sticky = E, pady=(0,5))
         
@@ -57,7 +60,8 @@ class GUI:
             if self.return_data[3] == "eleve":
                 eleve_panel.test(self.return_data[0])
             if self.return_data[3] == "school_office":
-                print("login sucessfull")
+                school_office.launch(self.return_data[0])
+                
         
     def error_message(self, error):
         if self.error :

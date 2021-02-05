@@ -2,8 +2,9 @@ import sqlite3
 import datetime 
 import time
 import random
-
-
+from tkinter import Tk, font
+root = Tk()
+font.families()
 #INSERT INTO absence VALUES (1,1,"2021-1-23 18:42:25","2021-1-23 18:42:26",True)
 
 connexion = sqlite3.connect('login.db')
