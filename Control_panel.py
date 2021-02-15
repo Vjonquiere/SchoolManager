@@ -19,7 +19,7 @@ class GUI:
         self.c.execute('''CREATE TABLE IF NOT EXISTS school_office(id_vie_sco INTEGER PRIMARY KEY, nom TEXT, prenom TEXT)  ''')
         self.c.execute('''CREATE TABLE IF NOT EXISTS absence(id INTEGER PRIMARY KEY AUTOINCREMENT, eleve_id INTEGER, debut DATETIME, fin DATETIME, justification_valide BOOLEAN)''')
         self.c.execute('''CREATE TABLE IF NOT EXISTS professor(id INTEGER PRIMARY KEY, nom TEXT, prenom TEXT, matiere TEXT, matiere2 TEXT, demi_pens BOOLEAN)''')
-        self.c.execute('''CREATE TABLE IF NOT EXISTS note(id_devoir INTEGER, classe TEXT, matiere TEXT, eleve_id INTEGER, prof_id INTEGER, note INTEGER)''')
+        self.c.execute('''CREATE TABLE IF NOT EXISTS note(id_devoir INTEGER, classe TEXT, matiere TEXT, eleve_id INTEGER, prof_id INTEGER, note INTEGER, note_max INTEGER, date DATE)''')
         self.c.execute('''CREATE TABLE IF NOT EXISTS prof_classe(prof_id INTEGER, classe1 TEXT, classe2 TEXT, classe3 TEXT, classe4 TEXT, classe5 TEXT)''')
         
         self.selector()

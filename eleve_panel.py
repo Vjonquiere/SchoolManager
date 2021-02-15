@@ -5,52 +5,64 @@ from PIL import ImageTk
 class GUI:
     def __init__(self, master, id,sql_db):
         
+        #### Window options
         self.m = master
         self.m.minsize(900,250)
-       
         
+       
+        #### Seting up frames | credits : https://pythonbasics.org/tkinter-frame/
+        self.absence_frame = Frame(self.m,highlightbackground="black",highlightthickness=1)
+        self.absence_frame.grid(column=1,row=0,padx = 10)
+        
+        self.grade_frame = Frame(self.m,highlightbackground="red",highlightthickness=1)
+        self.grade_frame.grid(column=0,row=0,sticky=N)
+        
+        #### SQL import
         self.id = id
         self.sql = sql_db
         
-        self.images_displayed = {}
-        
-        
-        self.m.title("Eleve: " + self.sql.get_firstname() + " " + self.sql.get_name()  + " " + self.sql.get_classroom())
-        
-        
-        self.title = Label(self.m,text="School Manager : Student").grid(column=1,row=0)
-        
 
-        #### Basic Labels
-        
-        self.absence_label = Label(self.m, text="Recent absences: ").grid(column=1, row=1, sticky = E)
-        
-        
+        #### Basic Datas
+        self.m.title("Eleve: " + self.sql.get_firstname() + " " + self.sql.get_name()  + " " + self.sql.get_classroom())
+        self.images_displayed = {}
+        self.absence_label = Label(self.absence_frame, text="Recent absences: ").grid(column=0, row=0, sticky = E)
+        self.absence_label = Label(self.grade_frame, text="Recent grades: ").grid(column=0, row=0, sticky = NE)
         self.display_abenses()
-        
+        self.display_grade()
+        print(self.sql.get_grades())
     
         
     def display_abenses(self):
         
         absence = self.sql.get_student_absences()
         
+        if len(absence) == 0:
+            self.no_absence_label = Label(self.absence_frame, text="Nothing recent here").grid(row=0,column=1)
+            
         for i in range(len(absence)):
-            self.show = Label(self.m,text="debut: " + str(absence[i][0]) + "    |    fin: " + str(absence[i][1]))
-            self.show.grid(row = 1 + i, column = 2)
+            self.show = Label(self.absence_frame,text="debut: " + str(absence[i][0]) + "    |    fin: " + str(absence[i][1]))
+            self.show.grid(row = i, column = 1)
             if absence[i][2] == True:
-                self.display_image(3 ,1+i,"icons/icon_checked.png")
+                self.display_image(2 ,i ,"icons/icon_checked.png")
             else:
-                self.display_image(3 ,1+i,"icons/icon_cancel.png")
+                self.display_image(2 ,i ,"icons/icon_cancel.png")
        
          
     def display_image(self, x, y, img):
-        
-        self.img = ImageTk.PhotoImage(master = self.m,file=img)
-        self.images_displayed["row{0}".format(y)] = Label(self.m, image=self.img)
+        self.img = ImageTk.PhotoImage(master = self.absence_frame,file=img)
+        self.images_displayed["row{0}".format(y)] = Label(self.absence_frame, image=self.img)
         self.images_displayed["row{0}".format(y)].image = self.img
         self.images_displayed["row{0}".format(y)].grid(column=x ,row=y)
       
+    def display_grade(self):
         
+        grades = self.sql.get_grades()
+        
+        if len(grades) == 0:
+            self.no_grade_label = Label(self.grade_frame,text='Nothing recent here').grid(row=0,column=1)
+        for i in range(len(grades)):
+            self.show = Label(self.grade_frame,text = str(grades[i][0]) + " " +str(grades[i][1]) + "\nfait le 15 nov")
+            self.show.grid(row = i, column = 1,sticky=SE) 
 
         
 class SQL:
@@ -81,8 +93,10 @@ class SQL:
         self.c.execute('''SELECT debut,fin,justification_valide FROM absence WHERE eleve_id = ?  ''', self.data)
         return self.c.fetchall()
 
-
-
+    def get_grades(self):
+        self.data = (self.id_eleve,)
+        self.c.execute('''SELECT matiere,note FROM note WHERE eleve_id = ?''',self.data)
+        return self.c.fetchall()
         
 def test(id):
     s = SQL(1)

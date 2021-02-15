@@ -43,10 +43,14 @@ class GUI:
     
     def login_test(self):
         
-        self.hash_mdp = hashlib.md5(self.mdp_champs.get().encode()).hexdigest()
+        self.mdpde = MDP
+        self.hash_mdp = hashlib.md5(self.mdpde.encode()).hexdigest()
+        self.data = (LOGIN,self.hash_mdp)
+        
 
-
-        self.data = (self.login_champs.get(),self.hash_mdp)
+        #self.hash_mdp = hashlib.md5(self.mdp_champs.get().encode()).hexdigest()
+        #self.data = (self.login_champs.get(),self.hash_mdp)
+        
         self.c.execute('''SELECT * FROM users WHERE login = ? AND mdp = ?''', self.data)
         self.a = self.c.fetchall()
 
