@@ -98,9 +98,10 @@ class SQL:
         self.c.execute('''SELECT matiere,note FROM note WHERE eleve_id = ?''',self.data)
         return self.c.fetchall()
         
+    
+    
 def test(id):
     s = SQL(1)
     root = Tk()
     my_gui = GUI(root, id, s)
     root.mainloop()
-    

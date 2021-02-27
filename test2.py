@@ -12,7 +12,7 @@ c = connexion.cursor()
 #c.execute('''CREATE TABLE IF NOT EXISTS absence(id INTEGER PRIMARY KEY, debut DATETIME, fin DATETIME, justification BOOLEAN );''')
 
 date = datetime.datetime.now()
-a = str(date.year) + "-" + str(date.month) + "-" + str(date.day) + " " + str(date.hour) + ":" + str(date.minute) + ":" + str(date.second)
+a = str(date.year) + "-" + str(date.month) + "-" + str(date.day) + " " + str(date.hour) + ":" + str(date.minute)
 print(a)
 
 
@@ -35,7 +35,3 @@ file1.close()
 
 ##################################################################################################
 
-data = ("",)
-c.execute('''SELECT id FROM users WHERE login = ? ''', data)
-a = c.fetchall() 
-print(a[0][0])
