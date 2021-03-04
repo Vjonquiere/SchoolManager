@@ -42,7 +42,7 @@ class GUI:
         for i in range(len(absence)):
             self.show = Label(self.absence_frame,text="debut: " + str(absence[i][0]) + "    |    fin: " + str(absence[i][1]))
             self.show.grid(row = i, column = 1)
-            if absence[i][2] == True:
+            if absence[i][2] == "True":
                 self.display_image(2 ,i ,"icons/icon_checked.png")
             else:
                 self.display_image(2 ,i ,"icons/icon_cancel.png")
@@ -101,7 +101,7 @@ class SQL:
     
     
 def test(id):
-    s = SQL(1)
+    s = SQL(id)
     root = Tk()
     my_gui = GUI(root, id, s)
     root.mainloop()
