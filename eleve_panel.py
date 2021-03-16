@@ -61,7 +61,7 @@ class GUI:
         if len(grades) == 0:
             self.no_grade_label = Label(self.grade_frame,text='Nothing recent here').grid(row=0,column=1)
         for i in range(len(grades)):
-            self.show = Label(self.grade_frame,text = str(grades[i][0]) + " " +str(grades[i][1]) + "\nfait le 15 nov")
+            self.show = Label(self.grade_frame,text = str(grades[i][0]) + " " +str(grades[i][1]) + "/" + str(grades[i][2]) + "\nfait le: " + grades[i][3])
             self.show.grid(row = i, column = 1,sticky=SE) 
 
         
@@ -95,7 +95,7 @@ class SQL:
 
     def get_grades(self):
         self.data = (self.id_eleve,)
-        self.c.execute('''SELECT matiere,note FROM note WHERE eleve_id = ?''',self.data)
+        self.c.execute('''SELECT matiere,note,note_max,date FROM note WHERE eleve_id = ?''',self.data)
         return self.c.fetchall()
         
     

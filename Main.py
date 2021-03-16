@@ -1,6 +1,7 @@
 from tkinter import *
 
-import sqlite3, sys, hashlib, eleve_panel, school_office
+import sqlite3, sys, hashlib
+from SchoolManager import professor_panel, eleve_panel, school_office
 
 
 
@@ -63,9 +64,11 @@ class GUI:
         else:
             self.return_data = self.a[0]
             if self.return_data[3] == "eleve":
-                eleve_panel.test(self.return_data[0])
+                eleve_panel.launch(self.return_data[0])
             if self.return_data[3] == "school_office":
                 school_office.launch(self.return_data[0])
+            if self.return_data[3] == "professor":
+                professor_panel.launch(self.return_data[0])
                 
         
     def error_message(self, error):

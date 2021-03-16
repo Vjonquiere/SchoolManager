@@ -39,7 +39,7 @@ class GUI:
         self.img = ImageTk.PhotoImage(master = self.add_absence_frame,file="icons/icon_add.png")
         self.but = Button(self.add_absence_frame, text = 'Add absence', image = self.img, compound = LEFT,height=10, command = self.add_absence).grid(column=13,row=0,sticky=N)
         
-        ### all spinbox for date/time of abscence ###############Have to remake that part of code##############################
+        ### all spinbox for date/time of abscence ############### I Have to remake that part of code##############################
         self.label_slash = Label(self.add_absence_frame,text=" / ").grid(column=6,row=0,sticky=N)
         self.label_slash2 = Label(self.add_absence_frame,text=" / ").grid(column=8,row=0,sticky=N)
         self.label_slash3 = Label(self.add_absence_frame,text=" h ").grid(column=11,row=0,sticky=N)
